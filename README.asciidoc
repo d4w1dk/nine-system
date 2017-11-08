@@ -1,0 +1,23 @@
+== Getting Started with jlink e.g created runtime image only with e.g java.base
+----
+$ env | grep JAVA_HOME
+JAVA_HOME=/usr/lib/jvm/java-9-oracle
+$ javac -version
+javac 9-ea
+$ java -version
+java version "9-ea"
+Java(TM) SE Runtime Environment (build 9-ea+123)
+Java HotSpot(TM) 64-Bit Server VM (build 9-ea+123, mixed mode)
+
+jlink --module-path $JAVA_HOME/jmods --add-modules java.base --output ~/testdir
+du -sh
+cd ~/testdir/bin
+./java --list-modules
+
+#Compare with standard jdk
+
+cd $JAVA_HOME/bin
+./java --list-modules
+
+ldd java
+----

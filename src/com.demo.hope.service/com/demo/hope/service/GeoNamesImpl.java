@@ -5,12 +5,11 @@ import java.util.List;
 
 
 class GeoNamesImpl {
-    private double lat;
-
     public Long getPopulation() {
         return population;
     }
 
+    private double lat;
     private double lng;
     private Integer geonameId;
     private Long population;
