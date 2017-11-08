@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="com.demo.hope">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/com.demo.hope.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

@@ -9,9 +9,9 @@ module com.demo.hope.client {
     requires retrofit;
     requires java.base;
     requires java.logging;
+    requires com.demo.hope.service;
 
-
-    requires com.demo.hope.model;
+    uses com.demo.hope.service.GeoNames;
 
 
 }

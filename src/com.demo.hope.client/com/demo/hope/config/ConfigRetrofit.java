@@ -25,13 +25,13 @@ public class ConfigRetrofit {
                 .configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
-    private OkHttpClient client(){
+    private OkHttpClient client() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
         return new OkHttpClient.Builder().addInterceptor(interceptor).build();
     }
 
-    public GeoNames createClient(){
+    public GeoNames createClient() {
         return new Retrofit.Builder()
                 .client(client())
                 .baseUrl("http://api.geonames.org")
@@ -41,10 +41,7 @@ public class ConfigRetrofit {
                 .create(GeoNames.class);
 
 
-
     }
-
-
 
 
 }

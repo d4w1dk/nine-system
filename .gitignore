@@ -1,4 +1,22 @@
-out
-.idea/workspace.xml
 .gradle
+
+classes/**
+
+# User-specific stuff:
+.idea/**/workspace.xml
+
+
+# Sensitive or high-churn files:
+
+.idea/**/uiDesigner.xml
+
+# Gradle:
+.idea/**/gradle.xml
+.idea/**/libraries
+
+
+
+# IntelliJ
+out/
+
 
