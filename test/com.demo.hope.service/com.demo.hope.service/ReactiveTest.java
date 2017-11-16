@@ -1,6 +1,8 @@
 package com.demo.hope.service;
 
 import com.demo.hope.config.ConfigRetrofit;
+import com.demo.hope.service.Population.GeoNames;
+import com.demo.hope.service.Weather.GeoWeather;
 import io.reactivex.Flowable;
 import io.reactivex.subscribers.TestSubscriber;
 import org.apache.commons.lang3.tuple.Pair;
@@ -8,29 +10,32 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.Callable;
 
+import static com.demo.hope.service.CitiesCoordniates.*;
 import static com.demo.hope.service.CityTestDataList.getRandomGeoHandleFromList;
-import static com.demo.hope.service.CityTestDataSet.getRandomGeoHandleFromSet;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class ReactiveTest {
 
-    private static final Logger log = LoggerFactory.getLogger(ReactiveTest.class);
-    private static final ConfigRetrofit configRetrofit = new ConfigRetrofit();
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReactiveTest.class);
+    private static final ConfigRetrofit CONFIG_RETROFIT = new ConfigRetrofit();
 
-    private static final GeoNames geoNames = configRetrofit.createClient();
+    private static final GeoNames RETROFIT_CLIENT_NAMES = CONFIG_RETROFIT.createNamesClient();
+    private static final GeoWeather RETROFIT_CLIENT_WEATHER = CONFIG_RETROFIT.createWeatherClient();
 
 
     static String slow() throws InterruptedException {
-        log.info("Running");
+        LOGGER.info("Running");
         SECONDS.sleep(1);
         return "abc";
     }
 
     Flowable<Pair<String, Long>> populationOfCity(String city) {
-        Flowable<Long> population = geoNames.populationOf(city);
+        Flowable<Long> population = RETROFIT_CLIENT_NAMES.populationOf(city);
         return population.map(p -> Pair.of(city, p));
     }
 
@@ -42,7 +47,7 @@ public class ReactiveTest {
                         .cache();
         cached.subscribe(
                 x -> {/*Ignore*/ },
-                e -> log.error("Prepopulation error", e)
+                e -> LOGGER.error("Prepopulation error", e)
         );
     }
 
@@ -54,10 +59,10 @@ public class ReactiveTest {
 
         Flowable<String> cities = Flowable.just("Warsaw", "Paris");
 
-        GeoNames geoNames = configRetrofit.createClient();
+        GeoNames geoNames = CONFIG_RETROFIT.createNamesClient();
 
         cities.concatMap(geoNames::populationOf)
-                .doOnNext(r -> log.info("Population: {}", r))
+                .doOnNext(r -> LOGGER.info("Population: {}", r))
                 .subscribe(testSubscriber);
 
         testSubscriber.awaitTerminalEvent();
@@ -71,10 +76,10 @@ public class ReactiveTest {
 
         Flowable<String> cities = Flowable.just("Warsaw", "Paris", "London", "Madrid");
 
-        GeoNames geoNames = configRetrofit.createClient();
+        GeoNames geoNames = CONFIG_RETROFIT.createNamesClient();
 
         cities.flatMap(geoNames::populationOf)
-                .doOnNext(r -> log.info("Population: {}", r))
+                .doOnNext(r -> LOGGER.info("Population: {}", r))
                 .subscribe(testSubscriber);
 
         testSubscriber.awaitTerminalEvent();
@@ -87,8 +92,8 @@ public class ReactiveTest {
 
         Flowable<String> cities = Flowable.just("Warsaw", "Paris", "Madrid");
 
-        cities.concatMapEager(geoNames::populationOf)
-                .doOnNext(r -> log.info("Population: {}", r))
+        cities.concatMapEager(RETROFIT_CLIENT_NAMES::populationOf)
+                .doOnNext(r -> LOGGER.info("Population: {}", r))
                 .subscribe(testSubscriber);
 
         testSubscriber.awaitTerminalEvent();
@@ -101,7 +106,7 @@ public class ReactiveTest {
         Flowable<String> cities = Flowable.just("Warsaw", "Paris", "Madrid");
 
         cities.flatMap(this::populationOfCity)
-                .doOnNext(r -> log.info("Population: {}", r))
+                .doOnNext(r -> LOGGER.info("Population: {}", r))
                 .subscribe(testSubscriber);
 
         testSubscriber.awaitTerminalEvent();
@@ -113,8 +118,8 @@ public class ReactiveTest {
 
         Flowable<String> cities = Flowable.just("Warsaw", "Paris", "Madrid");
 
-        cities.flatMap(city -> geoNames.populationOf(city), (city, pop) -> Pair.of(city, pop))
-                .doOnNext(r -> log.info("Population: {}", r))
+        cities.flatMap(city -> RETROFIT_CLIENT_NAMES.populationOf(city), (city, pop) -> Pair.of(city, pop))
+                .doOnNext(r -> LOGGER.info("Population: {}", r))
                 .subscribe(testSubscriber);
 
         testSubscriber.awaitTerminalEvent();
@@ -127,8 +132,8 @@ public class ReactiveTest {
 
         Flowable<String> cities = Flowable.just("Warsaw", "Paris", "Madrid");
 
-        cities.flatMap(geoNames::populationOf, Pair::of)
-                .doOnNext(r -> log.info("Population: {}", r))
+        cities.flatMap(RETROFIT_CLIENT_NAMES::populationOf, Pair::of)
+                .doOnNext(r -> LOGGER.info("Population: {}", r))
                 .subscribe(testSubscriber);
 
         testSubscriber.awaitTerminalEvent();
@@ -143,7 +148,7 @@ public class ReactiveTest {
                 .take(10);
 
         ids
-                .doOnNext(r -> log.info("UUID: {}", r.toString()))
+                .doOnNext(r -> LOGGER.info("UUID: {}", r.toString()))
                 .subscribe(testSubscriber);
 
         testSubscriber.awaitTerminalEvent();
@@ -178,8 +183,8 @@ public class ReactiveTest {
 
         Flowable<String> cities = Flowable.just(getRandomGeoHandleFromList());
 
-        cities.flatMap(geoNames::populationOf, Pair::of)
-                .doOnNext(r -> log.info("Population: {}", r))
+        cities.flatMap(RETROFIT_CLIENT_NAMES::populationOf, Pair::of)
+                .doOnNext(r -> LOGGER.info("Population: {}", r))
                 .subscribe(testSubscriber);
 
         testSubscriber.awaitTerminalEvent();
@@ -188,17 +193,35 @@ public class ReactiveTest {
 
     @Test
     public void test_11() throws Exception {
-        TestSubscriber<Pair<String, Long>> testSubscriber = new TestSubscriber<>();
+        TestSubscriber<Pair<Pair<Double, Double>, Pair<String, String>>> testSubscriber = new TestSubscriber<>();
 
-        Flowable<String> cities = Flowable.just(getRandomGeoHandleFromSet());
+        Flowable<Pair<Double, Double>> coordinates = Flowable.just(WARSAW.getCoordinates());
 
-        cities.flatMap(geoNames::populationOf, Pair::of)
-                .doOnNext(r -> log.info("Population: {}", r))
+        coordinates.flatMap(RETROFIT_CLIENT_WEATHER::weatherOf, Pair::of)
+                .doOnNext(r -> LOGGER.info("Wind (knots) and weather station name for coordinates: {}", r))
                 .subscribe(testSubscriber);
 
         testSubscriber.awaitTerminalEvent();
         testSubscriber.assertValueCount(1);
     }
 
-}
+    @Test
+    public void test_12() throws Exception {
+        TestSubscriber<Map<Pair<Double, Double>, Pair<String, String>>> testSubscriber = new TestSubscriber<>();
+
+        Flowable <Pair<Double, Double>> coordinates = Flowable.just(GDYNIA.getCoordinates());
+
+        coordinates.flatMap(RETROFIT_CLIENT_WEATHER::weatherOf, Map::of)
+                .doOnNext(r -> LOGGER.info("Wind (knots) and weather station name for coordinates: {}", r))
+                .subscribe(testSubscriber);
+
+        testSubscriber.awaitTerminalEvent();
+        testSubscriber.assertValueCount(1);
+    }
+
+
+    }
+
+
+
 

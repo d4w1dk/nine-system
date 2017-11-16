@@ -11,7 +11,8 @@ module com.demo.hope.client {
     requires java.logging;
     requires com.demo.hope.service;
 
-    uses com.demo.hope.service.GeoNames;
+    uses com.demo.hope.service.Population.GeoNames;
+    uses com.demo.hope.service.Weather.GeoWeather;
 
 
 }

@@ -1,4 +1,4 @@
-package com.demo.hope.service;
+package com.demo.hope.service.Population;
 
 import io.reactivex.Flowable;
 import io.reactivex.Single;
@@ -14,6 +14,7 @@ public interface GeoNames {
             @Query("maxRows") int maxRows,
             @Query("style") String style,
             @Query("username") String username
+
 
     );
 

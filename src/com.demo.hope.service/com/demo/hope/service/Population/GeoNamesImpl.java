@@ -1,4 +1,4 @@
-package com.demo.hope.service;
+package com.demo.hope.service.Population;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +21,9 @@ class GeoNamesImpl {
 
 
 class SearchResult{
+    private List<GeoNamesImpl> geonames = new ArrayList<>();
+
     public List<GeoNamesImpl> getGeonames() {
         return geonames;
     }
-
-    private List<GeoNamesImpl> geonames = new ArrayList<>();
 }

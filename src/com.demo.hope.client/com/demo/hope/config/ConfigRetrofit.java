@@ -1,7 +1,8 @@
 package com.demo.hope.config;
 
 
-import com.demo.hope.service.GeoNames;
+import com.demo.hope.service.Population.GeoNames;
+import com.demo.hope.service.Weather.GeoWeather;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
@@ -25,13 +26,13 @@ public class ConfigRetrofit {
                 .configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
-    private OkHttpClient client(){
+    private OkHttpClient client() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
         return new OkHttpClient.Builder().addInterceptor(interceptor).build();
     }
 
-    public GeoNames createClient(){
+    public GeoNames createNamesClient() {
         return new Retrofit.Builder()
                 .client(client())
                 .baseUrl("http://api.geonames.org")
@@ -39,12 +40,18 @@ public class ConfigRetrofit {
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper()))
                 .build()
                 .create(GeoNames.class);
-
-
-
     }
 
 
+    public GeoWeather createWeatherClient() {
+        return new Retrofit.Builder()
+                .client(client())
+                .baseUrl("http://api.geonames.org")
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+                .addConverterFactory(JacksonConverterFactory.create(objectMapper()))
+                .build()
+                .create(GeoWeather.class);
+    }
 
 
 }
