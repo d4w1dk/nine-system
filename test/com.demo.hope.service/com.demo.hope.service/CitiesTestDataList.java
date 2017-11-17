@@ -5,13 +5,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-class CityTestDataList {
+class CitiesTestDataList {
     static final List<String> EXAMPLE_HANDLES_0 =
             Arrays.asList(
                     "Paris", "Madrid", "Warsaw", "Oslo", "Berlin", "Rome",
                     "Prague", "London", "Dublin", "Hamburg", "Trondheim",
                     "Stavanger", "Brno", "Longyearbyen", "Seoul", "Sydney"
             );
+
 
     static final List<String> EXAMPLE_HANDLES_1 =
             Collections.unmodifiableList(Arrays.asList(

@@ -21,3 +21,12 @@ cd $JAVA_HOME/bin
 
 ldd java
 ----
+== Analyze multi-release jar file with jdeps
+----
+jdeps -?
+
+jdeps --multi-release 9 /jar-path
+
+jdeps --multi-release 9 -verbose:class multi-release.jar
+
+----
