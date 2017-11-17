@@ -6,7 +6,7 @@ import java.util.Set;
 
 import static java.util.Arrays.asList;
 
-class CityTestDataSet {
+class CitiesTestDataSet {
     static final Set<String> EXAMPLE_HANDLES_0
             = Collections.unmodifiableSet(new HashSet<>(asList(
             "Paris", "Madrid", "Warsaw", "Oslo", "Berlin", "Rome",

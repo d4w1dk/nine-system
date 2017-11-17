@@ -10,6 +10,7 @@ module com.demo.hope.client {
     requires java.base;
     requires java.logging;
     requires com.demo.hope.service;
+    requires jdk.incubator.httpclient;
 
     uses com.demo.hope.service.Population.GeoNames;
     uses com.demo.hope.service.Weather.GeoWeather;

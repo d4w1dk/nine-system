@@ -1,9 +1,6 @@
 package com.demo.hope.service;
 
-import io.reactivex.Flowable;
 import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.concurrent.Callable;
 
 enum CitiesCoordniates {
     GDYNIA(Pair.of(54.51, 18.53)),
@@ -23,7 +20,8 @@ enum CitiesCoordniates {
     BRNO(Pair.of(49.19, 16.60)),
     LONGYEARBYEN(Pair.of(78.22, 15.64)),
     SEOUL(Pair.of(37.56, 126.97)),
-    SYDNEY(Pair.of(-33.86, 151.20));
+    SYDNEY(Pair.of(-33.86, 151.20)),
+    AMSTERDAM(null);
 
 
     private Pair<Double, Double> coordinates;
@@ -32,24 +30,7 @@ enum CitiesCoordniates {
         this.coordinates = cords;
     }
 
-    CitiesCoordniates() {
-
-    }
-
     public Pair<Double, Double> getCoordinates() {
         return coordinates;
     }
-
-    public Callable<Pair<Double, Double>> callableCoordinates() {
-        return () -> coordinates;
-    }
-
-//    static Flowable<String> coordinatesForCities(Flowable<String> words) {
-//        return words
-//                .filter(WORD_TO_MOOD::containsKey)
-//                .map(WORD_TO_MOOD::get)
-//                .map(Enum::name);
-//    }
-
-
 }
