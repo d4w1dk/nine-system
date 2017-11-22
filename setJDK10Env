@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#export JAVA_HOME=/usr/lib/jvm/jdk-10/bin
+#export PATH=$JAVA_HOME/bin:$PATH
+
+sudo update-alternatives --install /usr/bin/jshell java /usr/lib/jvm/jdk-10/bin/jshell 1500
+sudo sudo update-alternatives --config jshell

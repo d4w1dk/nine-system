@@ -36,6 +36,15 @@ public class ReactiveTest {
         return "abc";
     }
 
+    private static List<String> walkAndFilterStackframe() {
+        return StackWalker.getInstance().walk(s ->
+                s.map(frame -> frame.getClassName() + "/" + frame.getMethodName())
+                        .filter(name -> name.startsWith("com.demo.hope"))
+                        .limit(10)
+                        .collect(Collectors.toList())
+        );
+    }
+
     Flowable<Pair<String, Long>> populationOfCity(String city) {
         Flowable<Long> population = RETROFIT_CLIENT_NAMES.populationOf(city);
         return population.map(p -> Pair.of(city, p));
@@ -258,6 +267,8 @@ public class ReactiveTest {
 
         Stream<String> cities = Stream.of("London", "Madrid");
 
+        /**(Resources c1 = cities) */
+
         try (cities) {
             Set<Pair<Double, Double>> cityCoord = cities.
                     map(s -> CitiesCoordniates.valueOf(s.toUpperCase()).getCoordinates())
@@ -340,15 +351,6 @@ public class ReactiveTest {
         testSubscriber.assertValueCount(1);
     }
 
-    private static List<String> walkAndFilterStackframe() {
-        return StackWalker.getInstance().walk(s ->
-                s.map(frame -> frame.getClassName() + "/" + frame.getMethodName())
-                        .filter(name -> name.startsWith("com.demo.hope"))
-                        .limit(10)
-                        .collect(Collectors.toList())
-        );
-    }
-
     @Test
     public void test_19() throws Exception {
         walkAndFilterStackframe().forEach(out::println);
@@ -359,15 +361,25 @@ public class ReactiveTest {
         ProcessHandle.allProcesses()
                 .map(ProcessHandle::info)
                 .filter(processInfo -> processInfo.user()
-                                                    .filter(user -> user.equals("d.kubicki"))
-                                                    .isPresent())
+                        .filter(user -> user.equals("d.kubicki"))
+                        .isPresent())
                 .filter(processInfo -> processInfo.command()
-                                                    .filter(command -> command.contains("java"))
-                                                    .isPresent())
+                        .filter(command -> command.contains("java"))
+                        .isPresent())
 
                 .forEach(out::println);
     }
 
+    @Test
+    public void test_21() throws Exception {
+        /** Depreciated method marked as error in IDE */
+        Thread.currentThread().stop(new RuntimeException());
+    }
+
+    @Test
+    public void test_22() throws Exception {
+
+    }
 
 
 }
