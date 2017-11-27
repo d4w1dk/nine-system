@@ -1,13 +1,22 @@
 package com.demo.hope.service.Weather;
 
 
+
+import akka.stream.javadsl.AsPublisher;
+import akka.stream.javadsl.JavaFlowSupport;
+import akka.stream.javadsl.Sink;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import org.apache.commons.lang3.tuple.Pair;
+import reactor.adapter.JdkFlowAdapter;
+import reactor.core.publisher.Flux;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 import java.util.List;
+import java.util.concurrent.Flow;
+
+import static com.demo.hope.flow.SubscriberFromFlowAdaptor.adapt;
 
 public interface GeoWeather {
 
@@ -15,6 +24,22 @@ public interface GeoWeather {
     }
 
     static void doSomethingElse() {
+    }
+
+    @SuppressWarnings("unused")
+    static void filterMessagesForWindFlux(Flow.Publisher<String> publisher,
+                                      Flow.Subscriber<String> subscriber) {
+        Flux.from(JdkFlowAdapter.flowPublisherToFlux(publisher))
+                .map(GeoWeather::getCityofMaxWind)
+                .map(String::toLowerCase)
+                .subscribe(adapt(subscriber));
+    }
+
+    Sink <String, Flow.Publisher<String>> asFlowPublisher =
+            JavaFlowSupport.Sink.asPublisher(AsPublisher.WITH_FANOUT);
+
+    private static String getCityofMaxWind(String respone) {
+        return null;
     }
 
     @GET("/findNearByWeatherJSON")
@@ -43,4 +68,5 @@ public interface GeoWeather {
     private void extractedPrivateMethod() {
 
     }
+
 }
