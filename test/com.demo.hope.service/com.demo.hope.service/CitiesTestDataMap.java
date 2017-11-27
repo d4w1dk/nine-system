@@ -70,8 +70,6 @@ class CitiesTestDataMap {
         CITY_FOR_WEATHER.put("sydney", SYDNEY);
     }
 
-
-
     static Flowable<Pair<Double, Double>> coordinatesForWords(Flowable<String> words) {
         return words.map(String::toLowerCase)
                 .filter(CITY_FOR_WEATHER::containsKey)

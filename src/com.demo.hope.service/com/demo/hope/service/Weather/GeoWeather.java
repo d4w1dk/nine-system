@@ -1,10 +1,6 @@
 package com.demo.hope.service.Weather;
 
 
-
-import akka.stream.javadsl.AsPublisher;
-import akka.stream.javadsl.JavaFlowSupport;
-import akka.stream.javadsl.Sink;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import org.apache.commons.lang3.tuple.Pair;
@@ -28,15 +24,13 @@ public interface GeoWeather {
 
     @SuppressWarnings("unused")
     static void filterMessagesForWindFlux(Flow.Publisher<String> publisher,
-                                      Flow.Subscriber<String> subscriber) {
+                                          Flow.Subscriber<String> subscriber) {
         Flux.from(JdkFlowAdapter.flowPublisherToFlux(publisher))
                 .map(GeoWeather::getCityofMaxWind)
                 .map(String::toLowerCase)
                 .subscribe(adapt(subscriber));
-    }
 
-    Sink <String, Flow.Publisher<String>> asFlowPublisher =
-            JavaFlowSupport.Sink.asPublisher(AsPublisher.WITH_FANOUT);
+    }
 
     private static String getCityofMaxWind(String respone) {
         return null;
@@ -50,6 +44,7 @@ public interface GeoWeather {
 
 
     );
+
 
     default Flowable<Pair<String, String>> windOf(Pair<Double, Double> coordinates) {
         return search(coordinates.getLeft(), coordinates.getRight(), "d4widk")

@@ -6,12 +6,9 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../service-test/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="true" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="9" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="com.demo.hope" level="project" />
-    <orderEntry type="library" name="reactive-streams-1.0.0" level="project" />
-    <orderEntry type="library" name="slf4j-api-1.7.25" level="project" />
-    <orderEntry type="library" name="retrofit-2.3.0" level="project" />
     <orderEntry type="module" module-name="com.demo.hope.client" />
     <orderEntry type="module" module-name="com.demo.hope.service" />
     <orderEntry type="module-library" scope="TEST">
@@ -24,8 +21,8 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="commons-lang3-3.6" level="project" />
-    <orderEntry type="library" name="okio-1.13.0" level="project" />
-    <orderEntry type="library" name="reactor-core-3.1.2.RELEASE" level="project" />
+    <orderEntry type="library" name="org.apache.commons:commons-lang3:3.6" level="project" />
+    <orderEntry type="library" name="org.slf4j:jul-to-slf4j:1.7.25" level="project" />
+    <orderEntry type="library" name="org.reactivestreams:reactive-streams:1.0.0" level="project" />
   </component>
 </module>

@@ -6,34 +6,12 @@
       <sourceFolder url="file://$USER_HOME$/com.demo.hope.model/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="9" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="commons-lang3-3.6" level="project" />
-    <orderEntry type="library" name="converter-jackson-2.3.0" level="project" />
-    <orderEntry type="library" name="jackson-annotations-2.7.0" level="project" />
-    <orderEntry type="library" name="jackson-annotations-2.7.01" level="project" />
-    <orderEntry type="library" name="jackson-core-2.7.2" level="project" />
-    <orderEntry type="library" name="jackson-databind-2.7.2" level="project" />
-    <orderEntry type="library" name="jul-to-slf4j-1.7.25" level="project" />
-    <orderEntry type="library" name="logback-classic-1.2.3" level="project" />
-    <orderEntry type="library" name="logback-core-1.2.3" level="project" />
-    <orderEntry type="library" name="logging-interceptor-3.7.0" level="project" />
-    <orderEntry type="library" name="okhttp-3.8.0" level="project" />
-    <orderEntry type="library" name="reactive-streams-1.0.0" level="project" />
-    <orderEntry type="library" name="retrofit-2.3.0" level="project" />
-    <orderEntry type="library" name="slf4j-api-1.7.25" level="project" />
     <orderEntry type="library" name="com.demo.hope" level="project" />
-    <orderEntry type="library" name="okio-1.13.0" level="project" />
-    <orderEntry type="library" name="reactor-core-3.1.2.RELEASE" level="project" />
     <orderEntry type="module" module-name="com.demo.hope.flow" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../lib/akka.stream2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="org.apache.commons:commons-lang3:3.6" level="project" />
+    <orderEntry type="library" name="io.projectreactor:reactor-core:3.1.2.RELEASE" level="project" />
+    <orderEntry type="library" name="com.squareup.retrofit2:converter-jackson:2.3.0" level="project" />
   </component>
 </module>

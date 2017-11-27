@@ -36,6 +36,15 @@ public class ReactiveTest {
         return "abc";
     }
 
+    private static List<String> walkAndFilterStackframe() {
+        return StackWalker.getInstance().walk(s ->
+                s.map(frame -> frame.getClassName() + "/" + frame.getMethodName())
+                        .filter(name -> name.startsWith("com.demo.hope"))
+                        .limit(10)
+                        .collect(Collectors.toList())
+        );
+    }
+
     Flowable<Pair<String, Long>> populationOfCity(String city) {
         Flowable<Long> population = RETROFIT_CLIENT_NAMES.populationOf(city);
         return population.map(p -> Pair.of(city, p));
@@ -256,7 +265,7 @@ public class ReactiveTest {
     public void test_15() throws Exception {
         TestSubscriber<Map<Pair<Double, Double>, List<String>>> testSubscriber = new TestSubscriber<>();
 
-        Stream<String> cities = Stream.of("London", "Madrid");
+        Stream<String> cities = Stream.of("Madrid");
 
         try (cities) {
             Set<Pair<Double, Double>> cityCoord = cities.
@@ -340,15 +349,6 @@ public class ReactiveTest {
         testSubscriber.assertValueCount(1);
     }
 
-    private static List<String> walkAndFilterStackframe() {
-        return StackWalker.getInstance().walk(s ->
-                s.map(frame -> frame.getClassName() + "/" + frame.getMethodName())
-                        .filter(name -> name.startsWith("com.demo.hope"))
-                        .limit(10)
-                        .collect(Collectors.toList())
-        );
-    }
-
     @Test
     public void test_19() throws Exception {
         walkAndFilterStackframe().forEach(out::println);
@@ -359,15 +359,14 @@ public class ReactiveTest {
         ProcessHandle.allProcesses()
                 .map(ProcessHandle::info)
                 .filter(processInfo -> processInfo.user()
-                                                    .filter(user -> user.equals("d.kubicki"))
-                                                    .isPresent())
+                        .filter(user -> user.equals("d.kubicki"))
+                        .isPresent())
                 .filter(processInfo -> processInfo.command()
-                                                    .filter(command -> command.contains("java"))
-                                                    .isPresent())
+                        .filter(command -> command.contains("java"))
+                        .isPresent())
 
                 .forEach(out::println);
     }
-
 
 
 }
