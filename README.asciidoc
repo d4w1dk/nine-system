@@ -1,4 +1,17 @@
-== Getting Started with jlink e.g created runtime image only with e.g java.base
+== nine-system
+
+Repository containing the demo code for JDK 9 and JDK10.
+
+*Branches*
+
+<1> working-system - the completed application. This version of the code focused on JPMS and new API future
+
+<2> broken-code - not compile under Java 9.
+
+<3> java-10 - shows some Var example in JShell files.
+
+
+*Getting Started with jlink e.g created runtime image only with e.g java.base*
 ----
 $ env | grep JAVA_HOME
 JAVA_HOME=/usr/lib/jvm/java-9-oracle
@@ -21,7 +34,7 @@ cd $JAVA_HOME/bin
 
 ldd java
 ----
-== Analyze multi-release jar file with jdeps
+*Analyze multi-release jar file with jdeps*
 ----
 jdeps -?
 

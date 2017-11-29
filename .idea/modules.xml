@@ -5,7 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/src/com.demo.hope.client/com.demo.hope.client.iml" filepath="$PROJECT_DIR$/src/com.demo.hope.client/com.demo.hope.client.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/com.demo.hope.flow/com.demo.hope.flow.iml" filepath="$PROJECT_DIR$/src/com.demo.hope.flow/com.demo.hope.flow.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/com.demo.hope.service/com.demo.hope.service.iml" filepath="$PROJECT_DIR$/src/com.demo.hope.service/com.demo.hope.service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/reactive-systems.iml" filepath="$PROJECT_DIR$/.idea/modules/reactive-systems.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/nine-system.iml" filepath="$PROJECT_DIR$/.idea/modules/nine-system.iml" />
       <module fileurl="file://$PROJECT_DIR$/test/com.demo.hope.service/service-test.iml" filepath="$PROJECT_DIR$/test/com.demo.hope.service/service-test.iml" />
     </modules>
   </component>
