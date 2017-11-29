@@ -9,9 +9,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="com.demo.hope" level="project" />
-    <orderEntry type="library" name="reactive-streams-1.0.0" level="project" />
-    <orderEntry type="library" name="slf4j-api-1.7.25" level="project" />
-    <orderEntry type="library" name="retrofit-2.3.0" level="project" />
     <orderEntry type="module" module-name="com.demo.hope.client" />
     <orderEntry type="module" module-name="com.demo.hope.service" />
     <orderEntry type="module-library" scope="TEST">
@@ -24,7 +21,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="commons-lang3-3.6" level="project" />
-    <orderEntry type="library" name="okio-1.13.0" level="project" />
   </component>
 </module>
