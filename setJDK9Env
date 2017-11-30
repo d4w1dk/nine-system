@@ -3,7 +3,7 @@
 export JAVA_HOME=/usr/lib/jvm/jdk-9-oracle/bin
 export PATH=$JAVA_HOME/bin:$PATH
 
-sudo update-alternatives --install /usr/bin/jshell java /usr/lib/jvm/jdk-9-oracle/bin/jshell 1500
+sudo update-alternatives --install /usr/bin/jshell java /usr/lib/jvm/jdk-9-oracle/bin/jshell 1
 sudo sudo update-alternatives --config jshell
 
 
